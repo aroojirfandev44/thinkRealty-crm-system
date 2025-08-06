@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import landingPageReducer from './Reducer/landingPageSlice'
+// import landingPageReducer from './Reducer/landingPageSlice'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage
-
+import landingPageReducer from './Reducer/landingPageSlice'
 const rootReducer = combineReducers({
   landingPage: landingPageReducer,
 })
