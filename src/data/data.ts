@@ -1,0 +1,208 @@
+import type { Area, Zone, Project, Unit } from '../types'
+
+export const mockAreas: Area[] = [
+  { area_id: 1, area_name_en: 'Downtown', area_name_ar: 'وسط المدينة' },
+  { area_id: 2, area_name_en: 'Marina', area_name_ar: 'مرسى دبي' },
+  { area_id: 3, area_name_en: 'Jumeirah', area_name_ar: 'جميرا' },
+  { area_id: 4, area_name_en: 'Business Bay', area_name_ar: 'الخليج التجاري' },
+]
+
+export const mockZones: Zone[] = [
+  { zone_id: 1, area_id: 1, zone_name_en: 'Zone A', zone_name_ar: 'المنطقة أ' },
+  { zone_id: 2, area_id: 1, zone_name_en: 'Zone B', zone_name_ar: 'المنطقة ب' },
+  { zone_id: 3, area_id: 2, zone_name_en: 'Zone C', zone_name_ar: 'المنطقة ج' },
+  { zone_id: 4, area_id: 3, zone_name_en: 'Zone D', zone_name_ar: 'المنطقة د' },
+  { zone_id: 5, area_id: 4, zone_name_en: 'Zone E', zone_name_ar: 'المنطقة هـ' },
+]
+
+export const mockProjects: Project[] = [
+  {
+    project_id: 101,
+    project_name: 'Sunrise Tower',
+    area_id: 1,
+    zone_id: 1,
+    completion_status: 'ready',
+    min_price: 800000,
+    max_price: 1400000,
+    total_units: 100,
+    available_units: 80
+  },
+  {
+    project_id: 102,
+    project_name: 'Marina View',
+    area_id: 2,
+    zone_id: 3,
+    completion_status: 'under_construction',
+    min_price: 1200000,
+    max_price: 2000000,
+    total_units: 150,
+    available_units: 70
+  },
+  {
+    project_id: 103,
+    project_name: 'Palm Residences',
+    area_id: 3,
+    zone_id: 4,
+    completion_status: 'ready',
+    min_price: 1500000,
+    max_price: 2500000,
+    total_units: 80,
+    available_units: 25
+  },
+  {
+    project_id: 104,
+    project_name: 'Bay Heights',
+    area_id: 4,
+    zone_id: 5,
+    completion_status: 'ready',
+    min_price: 900000,
+    max_price: 1800000,
+    total_units: 120,
+    available_units: 60
+  },
+  {
+    project_id: 105,
+    project_name: 'Future Horizon',
+    area_id: 2,
+    zone_id: 3,
+    completion_status: 'off_plan', 
+    min_price: 1100000,
+    max_price: 2100000,
+    total_units: 10,
+    available_units: 10
+  }
+]
+
+export const mockUnits: Unit[] = [
+  {
+    unit_id: 1,
+    project_id: 101,
+    unit_number: '101A',
+    property_type: 'apartment',
+    bedrooms: 2,
+    area_sqft: 1200,
+    price: 1000000,
+    status: 'available',
+    floor_level: 2,
+    has_balcony: true,
+    has_parking: false
+  },
+  {
+    unit_id: 2,
+    project_id: 101,
+    unit_number: '101B',
+    property_type: 'apartment',
+    bedrooms: 1,
+    area_sqft: 900,
+    price: 850000,
+    status: 'sold',
+    floor_level: 3,
+    has_balcony: false,
+    has_parking: true
+  },
+  {
+    unit_id: 3,
+    project_id: 102,
+    unit_number: 'MV-10',
+    property_type: 'apartment',
+    bedrooms: 4,
+    area_sqft: 3200,
+    price: 2000000,
+    status: 'available',
+    floor_level: 10,
+    has_balcony: false,
+    has_parking: true
+  },
+  {
+    unit_id: 4,
+    project_id: 103,
+    unit_number: 'PR-5A',
+    property_type: 'villa',
+    bedrooms: 3,
+    area_sqft: 2500,
+    price: 1800000,
+    status: 'available',
+    floor_level: 1,
+    has_balcony: true,
+    has_parking: true
+  },
+  {
+    unit_id: 5,
+    project_id: 104,
+    unit_number: 'BH-22C',
+    property_type: 'apartment',
+    bedrooms: 2,
+    area_sqft: 1300,
+    price: 1100000,
+    status: 'available',
+    floor_level: 22,
+    has_balcony: true,
+    has_parking: false
+  },
+  {
+    unit_id: 6,
+    project_id: 104,
+    unit_number: 'BH-23D',
+    property_type: 'apartment',
+    bedrooms: 0,
+    area_sqft: 600,
+    price: 900000,
+    status: 'sold',
+    floor_level: 23,
+    has_balcony: false,
+    has_parking: false
+  },
+  {
+    unit_id: 7,
+    project_id: 105,
+    unit_number: 'FH-1',
+    price: 1000000,
+    status: 'available',
+    floor_level: 1,
+    has_balcony: true,
+    has_parking: false,
+    property_type: 'apartment',
+    bedrooms: 2,
+    area_sqft: 1200
+  },
+  {
+    unit_id: 8,
+    project_id: 105,
+    unit_number: 'FH-2',
+    price: 1000000,
+    status: 'available',
+    floor_level: 2,
+    has_balcony: true,
+    has_parking: true,
+    property_type: 'apartment',
+    bedrooms: 2,
+    area_sqft: 1300
+  },
+  {
+    unit_id: 9,
+    project_id: 105,
+    unit_number: 'FH-3',
+    price: 1200000,
+    status: 'available',
+    floor_level: 5,
+    has_balcony: false,
+    has_parking: true,
+    property_type: 'apartment',
+    bedrooms: 3,
+    area_sqft: 1600
+  },
+  {
+    unit_id: 10,
+    project_id: 105,
+    unit_number: 'FH-4',
+    price: 1200000,
+    status: 'available',
+    floor_level: 5,
+    has_balcony: true,
+    has_parking: true,
+    property_type: 'apartment',
+    bedrooms: 3,
+    area_sqft: 1600
+  }
+  
+]
