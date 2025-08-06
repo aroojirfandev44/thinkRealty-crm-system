@@ -24,7 +24,7 @@ export const handleAvailabilityCascade = () => {
           status: isJustReserved || isReservedInRedux ? 'reserved' : 'available'
         }
       })
-   console.log("updatedUnits",updatedUnits)
+   
       // ✅ Find similar available units
       const similarUnits = updatedUnits.filter(
         u =>
@@ -33,7 +33,7 @@ export const handleAvailabilityCascade = () => {
           u.bedrooms === updatedUnit.bedrooms &&
           u.status === 'available'
       )
-      console.log("similarUnits",similarUnits)
+
     
       if (similarUnits.length > 0) {
         const similarUnitsInZone = updatedUnits.filter(
@@ -62,10 +62,9 @@ export const handleAvailabilityCascade = () => {
         u => u.project_id === updatedUnit.project_id && u.status === 'available'
       )
       const percentage = (availableUnits.length / totalUnits) * 100
-  console.log("percentage",percentage,availableUnits)
 
       if (percentage < 20) {
-        console.log("availableUnitsssssss",availableUnits)
+     
         availableUnits.forEach(u => {
           dispatch({
             type: 'landingPage/addDemandTrigger',

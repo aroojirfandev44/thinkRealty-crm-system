@@ -3,11 +3,13 @@ import { setSelectedProject } from '../Store/Reducer/landingPageSlice'
 import type { RootState } from '../Store/Store'
 import { mockProjects } from '../data/data'
 import { FaHome, FaChevronDown } from 'react-icons/fa'
+import { useTranslate } from '../Utils/useTranslate'
 
 const ProjectSelector = () => {
   const dispatch = useDispatch()
   const selectedZoneId = useSelector((state: RootState) => state.landingPage.selectedZoneId)
   const selectedProject = useSelector((state: RootState) => state.landingPage.selectedProject)
+  const t = useTranslate()
 
   const filteredProjects = mockProjects.filter(p => p.zone_id === selectedZoneId)
   const isDisabled = !selectedZoneId
@@ -19,8 +21,8 @@ const ProjectSelector = () => {
           <FaHome className="text-purple-600" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Select Project</h3>
-          <p className="text-sm text-gray-500">Choose your project within the zone</p>
+          <h3 className="text-lg font-semibold text-gray-900">{t.selectProject}</h3>
+          <p className="text-sm text-gray-500">{t.chooseProject}</p>
         </div>
       </div>
       <div className="relative">
@@ -33,7 +35,7 @@ const ProjectSelector = () => {
           disabled={isDisabled}
           className="w-full appearance-none bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 pr-10 text-gray-900"
         >
-          <option value="">Choose Project</option>
+          <option value="">{t.chooseProject}</option>
           {filteredProjects.map((project) => (
             <option key={project.project_id} value={project.project_id}>
               {project.project_name}

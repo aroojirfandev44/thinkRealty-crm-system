@@ -5,6 +5,7 @@ import type {
   DemandTrigger, NotificationState, ConflictState,
   ValidationError, ActiveUser
 } from '../../types'
+import { mockAreas } from '../../data/data';
 
 interface LandingPageState {
   selectedAreaId: number | null;
@@ -59,11 +60,19 @@ const landingPageSlice = createSlice({
   reducers: {
     // Area/Zone selection
     setSelectedArea(state, action: PayloadAction<number | null>) {
-      state.selectedAreaId = action.payload
-      state.selectedZoneId = null
-      state.selectedProject = null
-      state.selectedUnits = []
-    },
+        state.selectedAreaId = action.payload;
+        state.selectedZoneId = null;
+        state.selectedProject = null;
+        state.selectedUnits = [];
+      
+        const selectedArea = mockAreas.find(a => a.area_id === action.payload);
+        if (selectedArea?.area_name_ar.includes('دبي')) {
+          state.contentPersonalization.language = 'ar';
+        } else {
+          state.contentPersonalization.language = 'en';
+        }
+      }
+      ,
     setSelectedZone(state, action: PayloadAction<number | null>) {
       state.selectedZoneId = action.payload
       state.selectedProject = null
@@ -91,14 +100,14 @@ const landingPageSlice = createSlice({
               status: 'available'
             };
           } else {
-            // In case it's not found, add it as available
+            
             state.allUnits.push({
               ...action.payload,
               status: 'available'
             });
           }
         } else {
-          // Add to selected/reserved
+        
           const reservedUnit = {
             ...action.payload,
             status: 'reserved' as const
@@ -108,10 +117,8 @@ const landingPageSlice = createSlice({
           state.reservedUnits.push(reservedUnit);
       
           if (idx !== -1) {
-            // Update existing unit to reserved
             state.allUnits[idx] = reservedUnit;
           } else {
-            // Add new unit as reserved
             state.allUnits.push(reservedUnit);
           }
         }
