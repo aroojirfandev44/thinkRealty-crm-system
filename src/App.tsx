@@ -1,12 +1,9 @@
-
-
 import AreaSelector from './Components/AreaSelector'
-
 import ProjectSelector from './Components/ProjectSelector'
 import ZoneSelector from './Components/ZoneSelector'
-
 import UnitMultiSelect from './Components/UnitMultiSelect'
 import { FaBuilding } from 'react-icons/fa'
+import CalculatePrice from './Components/PricingCalculator'
 
 const App = () => {
 
@@ -33,7 +30,7 @@ const App = () => {
         <ZoneSelector />
         <ProjectSelector />
         <UnitMultiSelect />
-       
+       <CalculatePrice/>
       </div>
 
       {/* Footer */}
