@@ -22,6 +22,8 @@ interface LandingPageState {
   layoutMode: 'standard' | 'compact' | 'performance' | 'focus';
   validationErrors: ValidationError[];
   concurrentUsers: ActiveUser[];
+  reservedUnits: Unit[];
+  allUnits: Unit[]; // ✅ Add this
 }
 
 const initialState: LandingPageState = {
@@ -47,6 +49,8 @@ const initialState: LandingPageState = {
   layoutMode: 'standard',
   validationErrors: [],
   concurrentUsers: [],
+  reservedUnits: [],
+  allUnits: [], // ✅ initialize
 }
 
 const landingPageSlice = createSlice({
@@ -66,21 +70,71 @@ const landingPageSlice = createSlice({
       state.selectedUnits = []
     },
 
-    // Project/Unit selection
     setSelectedProject(state, action: PayloadAction<Project | null>) {
       state.selectedProject = action.payload
       state.selectedUnits = []
     },
     toggleUnit(state, action: PayloadAction<Unit>) {
-      const existing = state.selectedUnits.find(u => u.unit_id === action.payload.unit_id)
-      if (existing) {
-        state.selectedUnits = state.selectedUnits.filter(u => u.unit_id !== action.payload.unit_id)
-      } else {
-        state.selectedUnits.push(action.payload)
+        const unitId = action.payload.unit_id;
+        const existing = state.selectedUnits.find(u => u.unit_id === unitId);
+        const idx = state.allUnits.findIndex(u => u.unit_id === unitId);
+      
+        if (existing) {
+          // Remove from selected/reserved
+          state.selectedUnits = state.selectedUnits.filter(u => u.unit_id !== unitId);
+          state.reservedUnits = state.reservedUnits.filter(u => u.unit_id !== unitId);
+      
+          if (idx !== -1) {
+            // Update status in allUnits to 'available'
+            state.allUnits[idx] = {
+              ...state.allUnits[idx],
+              status: 'available'
+            };
+          } else {
+            // In case it's not found, add it as available
+            state.allUnits.push({
+              ...action.payload,
+              status: 'available'
+            });
+          }
+        } else {
+          // Add to selected/reserved
+          const reservedUnit = {
+            ...action.payload,
+            status: 'reserved' as const
+          };
+      
+          state.selectedUnits.push(reservedUnit);
+          state.reservedUnits.push(reservedUnit);
+      
+          if (idx !== -1) {
+            // Update existing unit to reserved
+            state.allUnits[idx] = reservedUnit;
+          } else {
+            // Add new unit as reserved
+            state.allUnits.push(reservedUnit);
+          }
+        }
       }
-    },
-
-    // Pricing and availability
+,      
+      
+      setAllUnits(state, action: PayloadAction<Unit[]>) {
+        state.allUnits = action.payload
+      },
+      appendOrUpdateUnits(state, action: PayloadAction<Unit[]>) {
+        action.payload.forEach(newUnit => {
+          const existingIndex = state.allUnits.findIndex(
+            u => u.unit_id === newUnit.unit_id
+          );
+      
+          if (existingIndex === -1) {
+           
+            state.allUnits.push(newUnit);
+          }
+         
+        });
+      }
+,      
     setPricingCalculations(state, action: PayloadAction<PricingResult>) {
       state.pricingCalculations = action.payload
     },
@@ -115,8 +169,14 @@ const landingPageSlice = createSlice({
 
     // Demand, Conflicts, Errors, Users
     addDemandTrigger(state, action: PayloadAction<DemandTrigger>) {
-      state.demandTriggers.push(action.payload)
-    },
+        const exists = state.demandTriggers.find(
+          t => t.unitId === action.payload.unitId && t.triggerType === action.payload.triggerType
+        )
+        if (!exists) {
+          state.demandTriggers.push(action.payload)
+        }
+      },
+            
     setConflict(state, action: PayloadAction<ConflictState>) {
       state.conflictResolution = action.payload
     },
@@ -138,9 +198,11 @@ const landingPageSlice = createSlice({
 
 export const {
   setSelectedArea,
+  appendOrUpdateUnits,
   setSelectedZone,
   setSelectedProject,
   toggleUnit,
+  setAllUnits,
   setPricingCalculations,
   setAvailabilityStatus,
   updateCountdownTimer,
