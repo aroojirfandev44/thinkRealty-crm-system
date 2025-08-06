@@ -38,6 +38,7 @@ export const mockProjects: Project[] = [
     total_units: 150,
     available_units: 70
   },
+
   {
     project_id: 103,
     project_name: 'Palm Residences',
@@ -187,7 +188,7 @@ export const mockUnits: Unit[] = [
     floor_level: 5,
     has_balcony: false,
     has_parking: true,
-    property_type: 'apartment',
+    property_type: 'villa',
     bedrooms: 3,
     area_sqft: 1600
   },
@@ -202,6 +203,42 @@ export const mockUnits: Unit[] = [
     has_parking: true,
     property_type: 'apartment',
     bedrooms: 3,
+    area_sqft: 1600
+  }, {
+    unit_id: 11,
+    project_id: 105,
+    unit_number: 'FH-5',
+    price: 1200000,
+    status: 'available',
+    floor_level: 5,
+    has_balcony: true,
+    has_parking: false,
+    property_type: 'apartment',
+    bedrooms: 3,
+    area_sqft: 1600
+  },{
+    unit_id: 12,
+    project_id: 105,
+    unit_number: 'FH-6',
+    price: 1200000,
+    status: 'available',
+    floor_level: 5,
+    has_balcony: true,
+    has_parking: false,
+    property_type: 'apartment',
+    bedrooms: 7,
+    area_sqft: 1600
+  },{
+    unit_id: 13,
+    project_id: 105,
+    unit_number: 'FH-7',
+    price: 12040000,
+    status: 'available',
+    floor_level: 5,
+    has_balcony: false,
+    has_parking: false,
+    property_type: 'villa',
+    bedrooms: 9,
     area_sqft: 1600
   }
   

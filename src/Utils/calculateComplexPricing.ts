@@ -41,8 +41,7 @@ export function calculateComplexPricing(
     total -= discount
     breakdown.push(`-3% bulk discount applied`)
   }
-
-  // Future appreciation for off-plan projects (with >18 months)
+  
   if (
     project.completion_status === 'off_plan' && // ← match your enum/type
     isCompletionBeyond18Months(project)
