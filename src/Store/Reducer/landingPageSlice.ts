@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type {
-  Area, Zone, Project, Unit,
+  Project, Unit,
   PricingResult, AvailabilityStatus, PersonalizationConfig,
   DemandTrigger, NotificationState, ConflictState,
   ValidationError, ActiveUser,
@@ -139,20 +139,40 @@ const landingPageSlice = createSlice({
       setAllUnits(state, action: PayloadAction<Unit[]>) {
         state.allUnits = action.payload
       },
-      appendOrUpdateUnits(state, action: PayloadAction<Unit[]>) {
-        action.payload.forEach(newUnit => {
-          const existingIndex = state.allUnits.findIndex(
-            u => u.unit_id === newUnit.unit_id
-          );
-      
-          if (existingIndex !== -1) {
-            state.allUnits[existingIndex] = newUnit;
-          } else {
-            state.allUnits.push(newUnit);
-          }
-         
-        });
+     appendOrUpdateUnits(state, action: PayloadAction<Unit[]>) {
+  const now = Date.now();
+
+  action.payload.forEach((newUnit) => {
+    const existingIndex = state.allUnits.findIndex(
+      (u) => u.unit_id === newUnit.unit_id
+    );
+
+    if (existingIndex !== -1) {
+      const existing = state.allUnits[existingIndex];
+
+      // 🧪 LOGGING COMPARISON
+      console.log('Comparing updates for unit:', newUnit.unit_number);
+      console.log('➡️ Incoming:', newUnit.lastUpdated, 'Price:', newUnit.price);
+      console.log('🟡 Existing:', existing.lastUpdated, 'Price:', existing.price);
+
+      const isStale = existing.lastUpdated && existing.lastUpdated > now;
+
+      if (!isStale) {
+        state.allUnits[existingIndex] = {
+          ...newUnit,
+          lastUpdated: now,
+        };
+      } else {
+        console.log('⛔ Skipping stale update for', newUnit.unit_number);
       }
+    } else {
+      console.log('🆕 Adding new unit:', newUnit.unit_number, 'at', now);
+      state.allUnits.push({ ...newUnit, lastUpdated: now });
+    }
+  });
+}
+
+      
 ,      
     setPricingCalculations(state, action: PayloadAction<PricingResult>) {
       state.pricingCalculations = action.payload
