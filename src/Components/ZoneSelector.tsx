@@ -4,11 +4,14 @@ import type { RootState } from '../Store/Store'
 import { mockZones } from '../data/data'
 import { MdBusiness } from 'react-icons/md'
 import { FaChevronDown } from 'react-icons/fa'
+import { useTranslate } from '../Utils/useTranslate'
+import { translations } from '../types/translation'
 
 const ZoneSelector = () => {
   const dispatch = useDispatch()
   const selectedAreaId = useSelector((state: RootState) => state.landingPage.selectedAreaId)
   const selectedZoneId = useSelector((state: RootState) => state.landingPage.selectedZoneId)
+  const t = useTranslate()
 
   const filteredZones = mockZones.filter(zone => zone.area_id === selectedAreaId)
   const isDisabled = !selectedAreaId
@@ -20,8 +23,8 @@ const ZoneSelector = () => {
           <MdBusiness className="text-green-600" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Select Zone</h3>
-          <p className="text-sm text-gray-500">Choose your zone within the area</p>
+          <h3 className="text-lg font-semibold text-gray-900">{t.selectZone}</h3>
+          <p className="text-sm text-gray-500">{t.chooseZone}</p>
         </div>
       </div>
       <div className="relative">
@@ -31,10 +34,10 @@ const ZoneSelector = () => {
           disabled={isDisabled}
           className="w-full appearance-none bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 pr-10 text-gray-900"
         >
-          <option value="">Choose Zone</option>
+          <option value="">{t.chooseZone}</option>
           {filteredZones.map((zone) => (
             <option key={zone.zone_id} value={zone.zone_id}>
-              {zone.zone_name_en}
+              {t === translations.ar ? zone.zone_name_ar : zone.zone_name_en}
             </option>
           ))}
         </select>
@@ -45,4 +48,3 @@ const ZoneSelector = () => {
 }
 
 export default ZoneSelector
-

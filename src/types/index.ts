@@ -16,7 +16,8 @@ export interface Zone {
 // Project Interface
 export interface Project {
   project_id: number
-  project_name: string
+  project_name_en: string
+  project_name_ar: string
   area_id: number
   zone_id: number
   completion_status: 'ready' | 'under_construction' | 'off_plan' 
@@ -31,7 +32,7 @@ export interface Unit {
   unit_id: number
   project_id: number
   unit_number: string
-  property_type: 'apartment' | 'villa' | 'townhouse'
+  property_type: 'apartment' | 'villa' | 'townhouse ' | 'studio'
   bedrooms: number
   area_sqft: number
   price: number
@@ -53,10 +54,12 @@ export interface AvailabilityStatus {
 }
 
 export interface PersonalizationConfig {
-  language: 'en' | 'ar';
-  currency: 'AED' | 'USD';
-  theme: 'light' | 'dark';
+  language: 'en' | 'ar'
+  currency: 'AED' | 'USD'
+  theme: 'light' | 'dark'
+  focus?: ('investment' | 'family' | 'luxury')[]
 }
+
 
 export interface DemandTrigger {
   unitId: number;
