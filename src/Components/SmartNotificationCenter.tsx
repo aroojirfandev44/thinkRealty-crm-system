@@ -12,12 +12,17 @@ const SmartNotificationCenter = () => {
 
   useEffect(() => {
     const unread = notifications.filter(n => !n.read)
-    unread.forEach(n => {
-      setTimeout(() => {
-        dispatch(markNotificationRead(n.id))
-      }, 5000)
-    })
+  
+    if (unread.length > 0) {
+      const timer = setTimeout(() => {
+        unread.forEach(n => {
+          dispatch(markNotificationRead(n.id))
+        });
+      }, 3000) // slight delay for rendering + visibility
+      return () => clearTimeout(timer)
+    }
   }, [notifications, dispatch])
+  
 
   return (
     <>

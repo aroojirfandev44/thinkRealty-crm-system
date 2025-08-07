@@ -4,7 +4,8 @@ import type {
   PricingResult, AvailabilityStatus, PersonalizationConfig,
   DemandTrigger, NotificationState, ConflictState,
   ValidationError, ActiveUser,
-  ValidationReport
+  ValidationReport,
+  layoutMode
 } from '../../types'
 import { mockAreas } from '../../data/data';
 import { runValidationChain } from '../../Utils/runValidationChain';
@@ -22,12 +23,13 @@ interface LandingPageState {
   demandTriggers: DemandTrigger[];
   notifications: NotificationState[];
   conflictResolution: ConflictState;
-  layoutMode: 'standard' | 'compact' | 'performance' | 'focus';
+  layoutMode: layoutMode;
   validationErrors: ValidationError[];
   concurrentUsers: ActiveUser[];
   reservedUnits: Unit[];
   allUnits: Unit[]; // ✅ Add this
   validationReport: ValidationReport[];
+  
 }
 
 const initialState: LandingPageState = {
@@ -50,7 +52,12 @@ const initialState: LandingPageState = {
     hasConflict: false,
     details: '',
   },
-  layoutMode: 'standard',
+  layoutMode: {
+    isCompact: false,
+    isPerformance: false,
+    isFocus: false,
+    isStandard: true,
+  },
   validationReport: [], // ✅ initialize
   validationErrors: [],
   concurrentUsers: [],
@@ -176,14 +183,18 @@ const landingPageSlice = createSlice({
     setContentPersonalizationFocus(state, action: PayloadAction<('investment' | 'family' | 'luxury')[]>) {
         state.contentPersonalization.focus = action.payload
       },      
-    setLayoutMode(state, action: PayloadAction<LandingPageState['layoutMode']>) {
-      state.layoutMode = action.payload
-    },
+      setLayoutMode(state, action: PayloadAction<layoutMode>) {
+        state.layoutMode = action.payload
+      }
+,          
 
-    // Notifications
-    addNotification(state, action: PayloadAction<NotificationState>) {
-      state.notifications.push(action.payload)
-    },
+      addNotification: (state, action) => {
+        const exists = state.notifications.some(n => n.id === action.payload.id);
+        if (!exists) {
+          state.notifications.push(action.payload);
+        }
+      }
+      ,
     markNotificationRead(state, action: PayloadAction<string>) {
       const notif = state.notifications.find(n => n.id === action.payload)
       if (notif) notif.read = true

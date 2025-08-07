@@ -13,11 +13,12 @@ const useSimulatePriceChange = () => {
   const dispatch = useDispatch()
   const allUnits = useSelector((state: RootState) => state.landingPage.allUnits)
   const selectedUnits = useSelector((state: RootState) => state.landingPage.selectedUnits)
-  const notifiedUnitsRef = useRef<Set<number>>(new Set())
+  const notifiedUnitsRef = useRef<Set<number>>(new Set());
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const unitIdToUpdate = 11
+      const unitIdToUpdate = 1
       const isSelected = selectedUnits.some(unit => unit.unit_id === unitIdToUpdate)
       if (!isSelected) return
       if (notifiedUnitsRef.current.has(unitIdToUpdate)) return
