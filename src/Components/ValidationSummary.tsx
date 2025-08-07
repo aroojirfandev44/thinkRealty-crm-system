@@ -16,7 +16,7 @@ const ValidationSummary = () => {
             key={index}
             className={`p-4 rounded-lg ${
               v.passed
-                ? 'bg-green-100 text-green-900'
+                ? 'bg-green-100 text-green-800'
                 : 'bg-red-200 text-red-900'
             }`}
           >
