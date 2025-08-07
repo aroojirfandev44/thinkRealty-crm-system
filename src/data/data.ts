@@ -2,7 +2,7 @@ import type { Area, Zone, Project, Unit } from '../types'
 
 export const mockAreas: Area[] = [
   { area_id: 1, area_name_en: 'Downtown', area_name_ar: 'وسط المدينة' },
-  { area_id: 2, area_name_en: 'Marina', area_name_ar: ' دبي' },
+  { area_id: 2, area_name_en: 'Marina', area_name_ar: ' الخليج' },
   { area_id: 3, area_name_en: 'Jumeirah', area_name_ar: 'جميرا' },
   { area_id: 4, area_name_en: 'Business Bay', area_name_ar: 'الخليج التجاري' },
 ]
@@ -85,25 +85,25 @@ export const mockUnits: Unit[] = [
     project_id: 101,
     unit_number: '101A',
     property_type: 'apartment',
-    bedrooms: 2,
+    bedrooms: 5,
     area_sqft: 1200,
     price: 1600000,
     status: 'available',
-    floor_level: 2,
+    floor_level: 5,
     has_balcony: true,
-    has_parking: false
+    has_parking: true
   },
   {
     unit_id: 2,
     project_id: 101,
     unit_number: '101B',
     property_type: 'apartment',
-    bedrooms: 1,
+    bedrooms: 5,
     area_sqft: 900,
     price: 1800000,
     status: 'sold',
-    floor_level: 3,
-    has_balcony: false,
+    floor_level: 5,
+    has_balcony: true,
     has_parking: true
   },
   {
@@ -111,12 +111,12 @@ export const mockUnits: Unit[] = [
     project_id: 101,
     unit_number: '101C',
     property_type: 'apartment',
-    bedrooms: 4,
+    bedrooms: 5,
     area_sqft: 3200,
     price: 1500000,
     status: 'available',
     floor_level: 10,
-    has_balcony: false,
+    has_balcony: true,
     has_parking: true
   },
   {
@@ -189,7 +189,7 @@ export const mockUnits: Unit[] = [
     project_id: 105,
     unit_number: 'FH-3',
     price: 1800000,
-    status: 'available',
+    status: 'sold',
     floor_level: 5,
     has_balcony: false,
     has_parking: true,
@@ -215,7 +215,7 @@ export const mockUnits: Unit[] = [
     project_id: 105,
     unit_number: 'FH-5',
     price: 1900000,
-    status: 'available',
+    status: 'sold',
     floor_level: 5,
     has_balcony: true,
     has_parking: true,

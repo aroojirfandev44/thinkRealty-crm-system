@@ -70,14 +70,33 @@ export interface DemandTrigger {
 export interface NotificationState {
   id: string;
   message: string;
-  type: 'success' | 'error' | 'info';
+  type: 'success' | 'error' | 'info' | 'price' | 'conflict' | 'validation'; 
   read: boolean;
+  timestamp?: string;
+}
+
+export interface ValidationError {
+  unitId: number;
+  field: string;
+  message: string;
 }
 
 export interface ConflictState {
   hasConflict: boolean;
   details: string;
+  conflictProjectId?: number;
+  mergeStrategy?: 'keepLocal' | 'reloadRemote'; // ✔️ Already defined
 }
+
+export interface ValidationReport {
+  unitId: number;
+  rule: string;
+  passed: boolean;
+  riskLevel: 'low' | 'medium' | 'high';
+  suggestion?: string;
+  message: string;
+}
+
 
 export interface ValidationError {
   field: string;

@@ -8,11 +8,14 @@ import { useTranslate } from './Utils/useTranslate'
 import { useSelector } from 'react-redux'
 import type { RootState } from './Store/Store'
 import ContentPreview from './Components/ContentPreview'
-
+import SmartNotificationCenter from './Components/SmartNotificationCenter'
+import useSimulatePriceChange from './Components/useSimulatePriceChange'
+import ConflictBanner from './Components/ConflictBanner'
+import ValidationSummary from './Components/ValidationSummary'
 const App = () => {
   const t = useTranslate()
   const lang = useSelector((state: RootState) => state.landingPage.contentPersonalization.language)
-
+  useSimulatePriceChange()
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4 py-8">
@@ -37,7 +40,11 @@ const App = () => {
           <ProjectSelector />
           <UnitMultiSelect />
           <CalculatePrice />
+          <ValidationSummary/>
+          <SmartNotificationCenter/>
+          {/* <ConflictBanner/> */}
           <ContentPreview/>
+
         </div>
 
         {/* Footer */}
