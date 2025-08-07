@@ -25,6 +25,7 @@ export interface Project {
   max_price: number
   total_units: number
   available_units: number
+ 
 }
 
 // Unit Interface
@@ -40,6 +41,17 @@ export interface Unit {
   floor_level: number
   has_balcony: boolean
   has_parking: boolean
+  lastUpdated?: number;
+}
+
+export interface ActiveUser {
+  userId: string;
+  username: string;
+  name: string;
+  action: string;
+  timestamp: number;
+  projectId: number;
+  selectedUnitIds: number[];
 }
 
 export interface PricingResult {

@@ -18,7 +18,7 @@ const useSimulatePriceChange = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const unitIdToUpdate = 1
+      const unitIdToUpdate = 11
       const isSelected = selectedUnits.some(unit => unit.unit_id === unitIdToUpdate)
       if (!isSelected) return
       if (notifiedUnitsRef.current.has(unitIdToUpdate)) return

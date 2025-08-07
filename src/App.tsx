@@ -10,7 +10,8 @@ import type { RootState } from './Store/Store'
 import ContentPreview from './Components/ContentPreview'
 import SmartNotificationCenter from './Components/SmartNotificationCenter'
 import useSimulatePriceChange from './Components/useSimulatePriceChange'
-import ConflictBanner from './Components/ConflictBanner'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ValidationSummary from './Components/ValidationSummary'
 import AdaptiveLayoutManager from './Components/AdaptiveLayoutManager'
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <AdaptiveLayoutManager />
           {/* <ConflictBanner/> */}
           <ContentPreview/>
+          <ToastContainer position="top-right" autoClose={4000} hideProgressBar />
 
         </div>
 
