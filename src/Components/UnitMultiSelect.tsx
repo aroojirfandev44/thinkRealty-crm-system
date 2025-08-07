@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleUnit, appendOrUpdateUnits, setValidationErrorsFromChain ,updateConcurrentUsers} from '../Store/Reducer/landingPageSlice'
+import { toggleUnit, appendOrUpdateUnits, setValidationErrorsFromChain, updateConcurrentUsers } from '../Store/Reducer/landingPageSlice'
 import type { RootState } from '../Store/Store'
 import { mockUnits } from '../data/data'
 import { FaCheck } from 'react-icons/fa'
@@ -22,7 +22,7 @@ const UnitMultiSelect = () => {
   const validationErrors = useSelector((state: RootState) => state.landingPage.validationErrors)
   const layoutMode = useSelector((state: RootState) => state.landingPage.layoutMode)
 
-  const isDisabled = !selectedProject
+
   const filteredUnits = allUnits.filter(unit => unit.project_id === selectedProject?.project_id)
   const t = useTranslate()
 
@@ -35,7 +35,7 @@ const UnitMultiSelect = () => {
   }
   useEffect(() => {
     if (!selectedProject) return;
-  
+
     const simulatedUser: ActiveUser = {
       userId: 'user_abc',
       username: 'another_user',
@@ -45,42 +45,42 @@ const UnitMultiSelect = () => {
       projectId: selectedProject.project_id ?? -1,
       selectedUnitIds: [1, 2],
     };
-  
+
     dispatch(updateConcurrentUsers([simulatedUser]));
   }, [selectedProject, dispatch]);
 
   const concurrentUsers = useSelector((state: RootState) => state.landingPage.concurrentUsers);
-  
+
   const overlappingUnits = concurrentUsers
     .filter(user => user.projectId === selectedProject?.project_id)
     .flatMap(user => user.selectedUnitIds)
     .filter(unitId => selectedUnits.some(unit => unit.unit_id === unitId));
-   
-    const [shownConflictUnitIds, setShownConflictUnitIds] = useState<number[]>([]);
 
-    useEffect(() => {
-      const newConflicts = overlappingUnits.filter(
-        unitId => !shownConflictUnitIds.includes(unitId)
-      );
-    
-      if (newConflicts.length > 0) {
-        newConflicts.forEach((unitId) => {
-          toast.warn(`⚠️ Conflict: Unit ${unitId} is already selected by another user`, {
-            toastId: `conflict-unit-${unitId}`, // unique ID per unit
-            autoClose: 4000,
-          });
+  const [shownConflictUnitIds, setShownConflictUnitIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    const newConflicts = overlappingUnits.filter(
+      unitId => !shownConflictUnitIds.includes(unitId)
+    );
+
+    if (newConflicts.length > 0) {
+      newConflicts.forEach((unitId) => {
+        toast.warn(`⚠️ Conflict: Unit ${unitId} is already selected by another user`, {
+          toastId: `conflict-unit-${unitId}`, // unique ID per unit
+          autoClose: 4000,
         });
-    
-        setShownConflictUnitIds(prev => [...prev, ...newConflicts]);
-      }
-    
-      if (overlappingUnits.length === 0 && shownConflictUnitIds.length > 0) {
-        setShownConflictUnitIds([]); // Reset when no conflict
-      }
-    }, [overlappingUnits, shownConflictUnitIds]);
-    
-    
-    
+      });
+
+      setShownConflictUnitIds(prev => [...prev, ...newConflicts]);
+    }
+
+    if (overlappingUnits.length === 0 && shownConflictUnitIds.length > 0) {
+      setShownConflictUnitIds([]); // Reset when no conflict
+    }
+  }, [overlappingUnits, shownConflictUnitIds]);
+
+
+
   const hasValidationError = (unitId: number): boolean =>
     validationErrors.some(error => error.unitId === unitId)
 
@@ -110,7 +110,7 @@ const UnitMultiSelect = () => {
       availabilityCascade(unit)
     }, 300, { leading: true, trailing: false }) // ← this is important
   ).current
-  
+
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(prev => prev - 1)
   }
@@ -135,8 +135,8 @@ const UnitMultiSelect = () => {
     return acc
   }, {} as Record<number, Unit[]>)
 
- 
-  
+
+
   return (
     <>
       {layoutMode.isCompact ? (
