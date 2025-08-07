@@ -4,6 +4,7 @@ import type { RootState } from '../Store/Store'
 import { mockProjects } from '../data/data'
 import { FaHome, FaChevronDown } from 'react-icons/fa'
 import { useTranslate } from '../Utils/useTranslate'
+import { translations } from '../types/translation'
 
 const ProjectSelector = () => {
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const ProjectSelector = () => {
           <option value="">{t.chooseProject}</option>
           {filteredProjects.map((project) => (
             <option key={project.project_id} value={project.project_id}>
-              {project.project_name}
+             {t === translations.ar ? project.project_name_ar : project.project_name_en}
             </option>
           ))}
         </select>

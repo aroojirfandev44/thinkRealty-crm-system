@@ -2,7 +2,7 @@ import type { Area, Zone, Project, Unit } from '../types'
 
 export const mockAreas: Area[] = [
   { area_id: 1, area_name_en: 'Downtown', area_name_ar: 'وسط المدينة' },
-  { area_id: 2, area_name_en: 'Marina', area_name_ar: 'وسط المدينة' },
+  { area_id: 2, area_name_en: 'Marina', area_name_ar: ' دبي' },
   { area_id: 3, area_name_en: 'Jumeirah', area_name_ar: 'جميرا' },
   { area_id: 4, area_name_en: 'Business Bay', area_name_ar: 'الخليج التجاري' },
 ]
@@ -16,62 +16,68 @@ export const mockZones: Zone[] = [
 ]
 
 export const mockProjects: Project[] = [
-  {
-    project_id: 101,
-    project_name: 'Sunrise Tower',
-    area_id: 1,
-    zone_id: 1,
-    completion_status: 'ready',
-    min_price: 800000,
-    max_price: 1400000,
-    total_units: 100,
-    available_units: 80
-  },
-  {
-    project_id: 102,
-    project_name: 'Marina View',
-    area_id: 2,
-    zone_id: 3,
-    completion_status: 'under_construction',
-    min_price: 1200000,
-    max_price: 2000000,
-    total_units: 150,
-    available_units: 70
-  },
-  {
-    project_id: 103,
-    project_name: 'Palm Residences',
-    area_id: 3,
-    zone_id: 4,
-    completion_status: 'ready',
-    min_price: 1500000,
-    max_price: 2500000,
-    total_units: 80,
-    available_units: 25
-  },
-  {
-    project_id: 104,
-    project_name: 'Bay Heights',
-    area_id: 4,
-    zone_id: 5,
-    completion_status: 'ready',
-    min_price: 900000,
-    max_price: 1800000,
-    total_units: 120,
-    available_units: 60
-  },
-  {
-    project_id: 105,
-    project_name: 'Future Horizon',
-    area_id: 2,
-    zone_id: 3,
-    completion_status: 'off_plan', 
-    min_price: 1100000,
-    max_price: 2100000,
-    total_units: 10,
-    available_units: 10
-  }
-]
+    {
+      project_id: 101,
+      project_name_en: 'Sunrise Tower',
+      project_name_ar: 'برج الشروق',
+      area_id: 1,
+      zone_id: 1,
+      completion_status: 'ready',
+      min_price: 800000,
+      max_price: 1400000,
+      total_units: 100,
+      available_units: 80
+    },
+    {
+      project_id: 102,
+      project_name_en: 'Marina View',
+      project_name_ar: 'إطلالة المارينا',
+      area_id: 2,
+      zone_id: 3,
+      completion_status: 'under_construction',
+      min_price: 1200000,
+      max_price: 2000000,
+      total_units: 150,
+      available_units: 70
+    },
+    {
+      project_id: 103,
+      project_name_en: 'Palm Residences',
+      project_name_ar: 'مساكن النخلة',
+      area_id: 3,
+      zone_id: 4,
+      completion_status: 'ready',
+      min_price: 1500000,
+      max_price: 2500000,
+      total_units: 80,
+      available_units: 25
+    },
+    {
+      project_id: 104,
+      project_name_en: 'Bay Heights',
+      project_name_ar: 'مرتفعات الخليج',
+      area_id: 4,
+      zone_id: 5,
+      completion_status: 'ready',
+      min_price: 900000,
+      max_price: 1800000,
+      total_units: 120,
+      available_units: 60
+    },
+    {
+      project_id: 105,
+      project_name_en: 'Future Horizon',
+      project_name_ar: 'آفاق المستقبل',
+      area_id: 2,
+      zone_id: 3,
+      completion_status: 'off_plan', 
+      min_price: 1100000,
+      max_price: 2100000,
+      total_units: 10,
+      available_units: 10
+    }
+  ]
+  
 
 export const mockUnits: Unit[] = [
   {

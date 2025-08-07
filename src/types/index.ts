@@ -16,7 +16,8 @@ export interface Zone {
 // Project Interface
 export interface Project {
   project_id: number
-  project_name: string
+  project_name_en: string
+  project_name_ar: string
   area_id: number
   zone_id: number
   completion_status: 'ready' | 'under_construction' | 'off_plan' 

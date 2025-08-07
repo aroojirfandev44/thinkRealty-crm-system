@@ -19,7 +19,7 @@ const ContentPreview = () => {
 
   useEffect(() => {
     if (selectedUnits.length > 0 && selectedProject && selectedArea) {
-      const config = generatePersonalizationConfig(selectedUnits, selectedProject, selectedArea)
+      const config = generatePersonalizationConfig(selectedUnits,  selectedArea)
       dispatch(setPersonalization(config))
     }
   }, [selectedUnits, selectedProject, selectedArea])
