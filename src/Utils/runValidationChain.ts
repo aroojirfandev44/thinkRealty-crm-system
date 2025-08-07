@@ -51,10 +51,10 @@ export const runValidationChain = (
   const projectStatuses = selectedProjectIds
     .map(id => mockUnits.find(p => p.unit_id === id)?.status)
     .filter(Boolean);
-  console.log("projectStatuses",projectStatuses)
+  
   const uniqueStatuses = [...new Set(projectStatuses)];
   const phaseConflict = uniqueStatuses.length > 1;
-  console.log("phaseConflict",phaseConflict)
+
   violations.push({
     rule: 'Phase conflict across selected units',
     passed: !phaseConflict,

@@ -107,3 +107,10 @@ export interface ActiveUser {
   userId: string;
   username: string;
 }
+export interface layoutMode {
+  isCompact: boolean
+  isPerformance: boolean
+  isFocus: boolean
+  isStandard: boolean
+}
+

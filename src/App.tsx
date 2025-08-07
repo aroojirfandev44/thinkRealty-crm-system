@@ -12,6 +12,7 @@ import SmartNotificationCenter from './Components/SmartNotificationCenter'
 import useSimulatePriceChange from './Components/useSimulatePriceChange'
 import ConflictBanner from './Components/ConflictBanner'
 import ValidationSummary from './Components/ValidationSummary'
+import AdaptiveLayoutManager from './Components/AdaptiveLayoutManager'
 const App = () => {
   const t = useTranslate()
   const lang = useSelector((state: RootState) => state.landingPage.contentPersonalization.language)
@@ -42,6 +43,7 @@ const App = () => {
           <CalculatePrice />
           <ValidationSummary/>
           <SmartNotificationCenter/>
+          <AdaptiveLayoutManager />
           {/* <ConflictBanner/> */}
           <ContentPreview/>
 
