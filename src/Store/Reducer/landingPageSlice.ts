@@ -3,9 +3,11 @@ import type {
   Area, Zone, Project, Unit,
   PricingResult, AvailabilityStatus, PersonalizationConfig,
   DemandTrigger, NotificationState, ConflictState,
-  ValidationError, ActiveUser
+  ValidationError, ActiveUser,
+  ValidationReport
 } from '../../types'
 import { mockAreas } from '../../data/data';
+import { runValidationChain } from '../../Utils/runValidationChain';
 
 interface LandingPageState {
   selectedAreaId: number | null;
@@ -25,6 +27,7 @@ interface LandingPageState {
   concurrentUsers: ActiveUser[];
   reservedUnits: Unit[];
   allUnits: Unit[]; // ✅ Add this
+  validationReport: ValidationReport[];
 }
 
 const initialState: LandingPageState = {
@@ -48,6 +51,7 @@ const initialState: LandingPageState = {
     details: '',
   },
   layoutMode: 'standard',
+  validationReport: [], // ✅ initialize
   validationErrors: [],
   concurrentUsers: [],
   reservedUnits: [],
@@ -134,8 +138,9 @@ const landingPageSlice = createSlice({
             u => u.unit_id === newUnit.unit_id
           );
       
-          if (existingIndex === -1) {
-           
+          if (existingIndex !== -1) {
+            state.allUnits[existingIndex] = newUnit;
+          } else {
             state.allUnits.push(newUnit);
           }
          
@@ -145,6 +150,13 @@ const landingPageSlice = createSlice({
     setPricingCalculations(state, action: PayloadAction<PricingResult>) {
       state.pricingCalculations = action.payload
     },
+    setValidationReport(state, action: PayloadAction<ValidationReport[]>) {
+        state.validationReport = action.payload;
+      },
+      clearValidationReport(state) {
+        state.validationReport = [];
+      },
+      
     setAvailabilityStatus(state, action: PayloadAction<AvailabilityStatus>) {
       state.availabilityStatus = action.payload
     },
@@ -190,6 +202,33 @@ const landingPageSlice = createSlice({
     setConflict(state, action: PayloadAction<ConflictState>) {
       state.conflictResolution = action.payload
     },
+    setValidationErrorsFromChain(
+        state,
+        action: PayloadAction<{ selectedUnits: Unit[]; project: Project }>
+      ) {
+        const { selectedUnits, project } = action.payload;
+        const results = runValidationChain(selectedUnits, project);
+      
+        state.validationErrors = results
+          .filter(r => !r.passed)
+          .map(r => ({
+            unitId: r.unitId,
+            field: r.rule,
+            message: r.message
+          }));
+      
+        state.validationReport = results.map(({ rule, passed, riskLevel, suggestion, unitId, message }) => ({
+          rule,
+          passed,
+          riskLevel,
+          suggestion,
+          unitId,
+          message
+        }));
+      }
+      
+,      
+      
     addValidationError(state, action: PayloadAction<ValidationError>) {
       state.validationErrors.push(action.payload)
     },
@@ -210,6 +249,8 @@ export const {
   setSelectedArea,
   appendOrUpdateUnits,
   setSelectedZone,
+  setValidationReport,
+clearValidationReport,
   setSelectedProject,
   toggleUnit,
   setContentPersonalizationFocus,
@@ -224,6 +265,7 @@ export const {
   markNotificationRead,
   addDemandTrigger,
   setConflict,
+  setValidationErrorsFromChain,
   addValidationError,
   clearValidationErrors,
   updateConcurrentUsers,
