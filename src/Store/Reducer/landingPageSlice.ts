@@ -161,6 +161,9 @@ const landingPageSlice = createSlice({
     setPersonalization(state, action: PayloadAction<PersonalizationConfig>) {
       state.contentPersonalization = action.payload
     },
+    setContentPersonalizationFocus(state, action: PayloadAction<('investment' | 'family' | 'luxury')[]>) {
+        state.contentPersonalization.focus = action.payload
+      },      
     setLayoutMode(state, action: PayloadAction<LandingPageState['layoutMode']>) {
       state.layoutMode = action.payload
     },
@@ -209,6 +212,7 @@ export const {
   setSelectedZone,
   setSelectedProject,
   toggleUnit,
+  setContentPersonalizationFocus,
   setAllUnits,
   setPricingCalculations,
   setAvailabilityStatus,

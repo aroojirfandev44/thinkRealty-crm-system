@@ -1,11 +1,10 @@
 import type { Unit, Project, PricingResult } from '../types'
 
-import { translations } from '../types/translation'
 export function calculateComplexPricing(
   units: Unit[],
   project: Project,
   percentageSelected: number,
-  t: translations // 👈 Accept translation object
+  t: any 
 ): PricingResult {
   let total = 0
   const breakdown: string[] = []

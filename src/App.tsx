@@ -7,6 +7,7 @@ import { FaBuilding } from 'react-icons/fa'
 import { useTranslate } from './Utils/useTranslate'
 import { useSelector } from 'react-redux'
 import type { RootState } from './Store/Store'
+import ContentPreview from './Components/ContentPreview'
 
 const App = () => {
   const t = useTranslate()
@@ -36,6 +37,7 @@ const App = () => {
           <ProjectSelector />
           <UnitMultiSelect />
           <CalculatePrice />
+          <ContentPreview/>
         </div>
 
         {/* Footer */}

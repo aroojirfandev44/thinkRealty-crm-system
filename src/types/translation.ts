@@ -21,7 +21,13 @@ export const translations = {
       highDemand: '🔥 High Demand',
       limitedAvailability: '⚠️ Limited',
       reserveIn: '⏳ Reserve in',
-  
+      personalizedContent: "Personalized Recommendations",
+      investmentFocus: "Investment Focus",
+      familyFocus: "Family Focus",
+      luxuryFocus: "Luxury Focus",
+      investmentDescription: "High ROI expected due to popular unit types (studio/1BR).",
+      familyDescription: "Ideal for families with multiple bedrooms and amenities.",
+      luxuryDescription: "Premium units with high price per sqft indicate luxury demand.",
       // Headers & Footer
       realEstateHeader: 'Real Estate Selection Platform',
       totalPrice: 'Total Price',
@@ -67,7 +73,15 @@ export const translations = {
       balconyAdjustment: (unit: string) => `+8٪ لشرفة في الوحدة ${unit}`,
       parkingAdjustment: (unit: string) => `+15,000 درهم لموقف سيارة في الوحدة ${unit}`,
       bulkDiscount: '-3٪ خصم جماعي تم تطبيقه',
-      futureAppreciation: '+15٪ زيادة في القيمة لمشروع قيد الإنشاء'
+      futureAppreciation: '+15٪ زيادة في القيمة لمشروع قيد الإنشاء',
+       personalizedContent: "توصيات مخصصة",
+    investmentFocus: "التركيز على الاستثمار",
+    familyFocus: "التركيز على العائلة",
+    luxuryFocus: "التركيز على الفخامة",
+    investmentDescription: "عائد استثماري مرتفع متوقع بسبب الوحدات الشائعة (استوديو/غرفة واحدة).",
+    familyDescription: "مثالية للعائلات مع غرف نوم متعددة وخدمات مميزة.",
+    luxuryDescription: "الوحدات الفاخرة ذات السعر العالي لكل قدم مربع تشير إلى طلب فاخر.",
+ 
     }
   }
   

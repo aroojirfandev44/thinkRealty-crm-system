@@ -31,7 +31,7 @@ export interface Unit {
   unit_id: number
   project_id: number
   unit_number: string
-  property_type: 'apartment' | 'villa' | 'townhouse'
+  property_type: 'apartment' | 'villa' | 'townhouse ' | 'studio'
   bedrooms: number
   area_sqft: number
   price: number
@@ -53,10 +53,12 @@ export interface AvailabilityStatus {
 }
 
 export interface PersonalizationConfig {
-  language: 'en' | 'ar';
-  currency: 'AED' | 'USD';
-  theme: 'light' | 'dark';
+  language: 'en' | 'ar'
+  currency: 'AED' | 'USD'
+  theme: 'light' | 'dark'
+  focus?: ('investment' | 'family' | 'luxury')[]
 }
+
 
 export interface DemandTrigger {
   unitId: number;
