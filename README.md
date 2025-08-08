@@ -93,37 +93,34 @@ A real estate selection platform that allows users to select areas, zones, proje
 ### 🏢 4.2 Unit Selection + Pricing Breakdown
 **Description**: Real-time pricing logic including modifiers like floor level, balcony, parking, and discount rules.
 
----
+--- ![alt text](image-1.png)
 
 ### 🛎️ 4.3 Notification System
 **Description**: Displays toast-style alerts when price changes or unit conflicts are detected.
 
----
+--- ![alt text](image-2.png)
+--- ![alt text](image-3.png)
 
 ### 📱 4.4 Responsive Layout Modes
 **Description**: When many units are selected or on mobile, the view switches to "Grouped by Floor" mode.
 
----
+--- ![alt text](image-4.png)
+--- ![alt text](image-5.png)
+--- ![alt text](image-6.png)
 
 ### ⚠️ 4.5 Conflict & Error Handling
 **Description**: Locked units with countdowns and disabled selection. Shows unit demand indicators (🔥 High Demand).
 
----
+
+--- ![alt text](image-7.png)
 
 ## 🧩 5. Incomplete Items & Future Enhancements
-
-### 5.1 Not Fully Implemented
-
-- Backend APIs for real-time updates
-- Admin dashboard
-- Role-based access or multi-user tracking
 
 ### 5.2 Future Enhancements
 
 - Persist countdowns across sessions
 - Integrate socket.io for live updates
 - Add unit search, filter, and sort functionality
-- Show timer badges on grid view
 
 ---
 
@@ -139,9 +136,9 @@ A real estate selection platform that allows users to select areas, zones, proje
 | Unit Selection & Pricing Logic   | 4h          |
 | Countdown & Conflict Handling    | 3h          |
 | Validation Engine Implementation | 2h          |
-| Compact Layout View              | 2h          |
+| Compact Layout View              | 3h          |
 | Multilingual Support (EN/AR)     | 2h          |
-| UI Design & Styling              | 2h          |
+| UI Design & Styling              | 4h          |
 
 ---
 
@@ -154,22 +151,27 @@ A real estate selection platform that allows users to select areas, zones, proje
     ProjectSelector.tsx
     UnitMultiSelect.tsx
     PricingBreakdown.tsx
+    ZoneSelector.tsx
     ValidationSummary.tsx
     SmartNotificationCenter.tsx
     ConflictResolutionModal.tsx
+    useSimulatePriceChange.tsx
+    TimerDisplay.tsx
+    DropdownSelector.tsx
   /hooks
     useTranslate.ts
   /store
     landingPageSlice.ts
     Store.ts
   /utils
+    calculateComplexPricing.ts
     detectPriceChangesAndConflicts.ts
     runValidationChain.ts
     calculateOptimalLayout.ts
+    generatePersonalizationConfig.ts
+    handleAvailabilityCascade.ts
+    AdaptiveLayoutManager.tsx
   /data
     data.ts
 ```
 
----
-
-> 🔚 Thank you for reviewing this submission! Let me know if you’d like a hosted demo link or live walkthrough.

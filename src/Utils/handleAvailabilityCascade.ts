@@ -1,6 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
 import type { Unit, DemandTrigger } from '../types'
-import type { RootState } from '../Store/Store'
 import { addDemandTrigger, updateCountdownTimer } from '../Store/Reducer/landingPageSlice';
 export const handleAvailabilityCascade = (
   updatedUnit: Unit,
