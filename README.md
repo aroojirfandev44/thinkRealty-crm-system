@@ -83,8 +83,6 @@ A real estate selection platform that allows users to select areas, zones, proje
 
 ## 🖼️ 4. Screenshots and Descriptions
 
-> *(Screenshots are attached in the provided Word document. Below are captions and contexts.)*
-
 ### 📍 4.1 Initial Project Selection
 **Description**: The user starts the property selection process by choosing Area → Zone → Project.
 
@@ -105,7 +103,7 @@ A real estate selection platform that allows users to select areas, zones, proje
 **Description**: When many units are selected or on mobile, the view switches to "Grouped by Floor" mode.
 
 --- ![alt text](image-4.png)
---- ![alt text](image-5.png)
+--- ![alt text](image-8.png)
 --- ![alt text](image-6.png)
 
 ### ⚠️ 4.5 Conflict & Error Handling
@@ -113,7 +111,7 @@ A real estate selection platform that allows users to select areas, zones, proje
 
 
 --- ![alt text](image-7.png)
-
+--- ![alt text](image-9.png)
 ## 🧩 5. Incomplete Items & Future Enhancements
 
 ### 5.2 Future Enhancements

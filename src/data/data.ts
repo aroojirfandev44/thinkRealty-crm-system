@@ -2,7 +2,7 @@ import type { Area, Zone, Project, Unit } from '../types'
 
 export const mockAreas: Area[] = [
   { area_id: 1, area_name_en: 'Downtown', area_name_ar: 'وسط المدينة' },
-  { area_id: 2, area_name_en: 'Marina', area_name_ar: ' المدينة' },
+  { area_id: 2, area_name_en: 'Marina', area_name_ar: ' الخليج' },
   { area_id: 3, area_name_en: 'Jumeirah', area_name_ar: 'جميرا' },
   { area_id: 4, area_name_en: 'Business Bay', area_name_ar: 'الخليج التجاري' },
 ]
@@ -122,7 +122,7 @@ export const mockUnits: Unit[] = [
   {
     unit_id: 16,
     project_id: 101,
-    unit_number: '101D',
+    unit_number: '101C',
     property_type: 'apartment',
     bedrooms: 5,
     area_sqft: 3200,
@@ -135,7 +135,7 @@ export const mockUnits: Unit[] = [
   {
     unit_id: 17,
     project_id: 101,
-    unit_number: '101E',
+    unit_number: '101C',
     property_type: 'apartment',
     bedrooms: 5,
     area_sqft: 3200,
@@ -148,9 +148,9 @@ export const mockUnits: Unit[] = [
   {
     unit_id: 18,
     project_id: 101,
-    unit_number: '101F',
+    unit_number: '101C',
     property_type: 'apartment',
-    bedrooms: 15,
+    bedrooms: 5,
     area_sqft: 3200,
     price: 1500000,
     status: 'available',
@@ -161,9 +161,9 @@ export const mockUnits: Unit[] = [
   {
     unit_id: 19,
     project_id: 101,
-    unit_number: '101G',
+    unit_number: '101C',
     property_type: 'apartment',
-    bedrooms: 8,
+    bedrooms: 5,
     area_sqft: 3200,
     price: 1500000,
     status: 'available',
@@ -174,7 +174,7 @@ export const mockUnits: Unit[] = [
   {
     unit_id: 20,
     project_id: 101,
-    unit_number: '101H',
+    unit_number: '101C',
     property_type: 'apartment',
     bedrooms: 5,
     area_sqft: 3200,
@@ -247,7 +247,7 @@ export const mockUnits: Unit[] = [
     has_balcony: true,
     has_parking: true,
     property_type: 'apartment',
-    bedrooms: 3,
+    bedrooms: 2,
     area_sqft: 1300
   },
   {
@@ -255,12 +255,12 @@ export const mockUnits: Unit[] = [
     project_id: 105,
     unit_number: 'FH-3',
     price: 1800000,
-    status: 'available',
+    status: 'sold',
     floor_level: 5,
     has_balcony: false,
     has_parking: true,
     property_type: 'apartment',
-    bedrooms: 3,
+    bedrooms: 4,
     area_sqft: 1600
   },
   {
@@ -273,7 +273,7 @@ export const mockUnits: Unit[] = [
     has_balcony: true,
     has_parking: true,
     property_type: 'studio',
-    bedrooms: 3,
+    bedrooms: 5,
     area_sqft: 1600
   },
   {
@@ -281,12 +281,12 @@ export const mockUnits: Unit[] = [
     project_id: 105,
     unit_number: 'FH-5',
     price: 1900000,
-    status: 'available',
+    status: 'sold',
     floor_level: 5,
     has_balcony: true,
     has_parking: true,
-    property_type: 'apartment',
-    bedrooms: 3,
+    property_type: 'studio',
+    bedrooms: 5,
     area_sqft: 1600
   },
   {
@@ -298,8 +298,8 @@ export const mockUnits: Unit[] = [
     floor_level: 5,
     has_balcony: true,
     has_parking: true,
-    property_type: 'apartment',
-    bedrooms: 1,
+    property_type: 'studio',
+    bedrooms: 6,
     area_sqft: 1600
   },
   {

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import type { RootState } from '../Store/Store'
 import { calculateComplexPricing } from '../Utils/calculateComplexPricing'
 import { setPricingCalculations } from '../Store/Reducer/landingPageSlice'
-import { useTranslate } from '../Utils/useTranslate'
+import { useTranslate } from '../hooks/useTranslate'
 import { FaCalculator, FaDollarSign, FaChartLine, FaPercentage, FaTags, FaArrowRight } from 'react-icons/fa'
 
 const CalculatePrice = () => {
@@ -12,10 +12,13 @@ const CalculatePrice = () => {
   const selectedProject = useSelector((state: RootState) => state.landingPage.selectedProject)
   const selectedUnits = useSelector((state: RootState) => state.landingPage.selectedUnits)
   const pricingResult = useSelector((state: RootState) => state.landingPage.pricingCalculations)
-
+  const totalProjectUnits = useSelector((state: RootState) =>
+    state.landingPage.allUnits.filter(unit => unit.project_id === selectedProject?.project_id).length
+  )
+   const g= selectedProject?.total_units
   useEffect(() => {
     if (!selectedProject || selectedUnits.length === 0) return
-    const percentageSelected = (selectedUnits.length / selectedProject.total_units) * 100
+    const percentageSelected = (selectedUnits.length / totalProjectUnits) * 100
     const result = calculateComplexPricing(selectedUnits, selectedProject, percentageSelected, t)
     dispatch(setPricingCalculations(result))
   }, [selectedProject, selectedUnits, dispatch])
@@ -95,7 +98,6 @@ const CalculatePrice = () => {
         </div>
       </div>
 
-      {/* Additional Insights */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-blue-50 rounded-lg p-4 text-center">
           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">

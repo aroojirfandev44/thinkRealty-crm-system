@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../Store/Store'
 import { setAllUnits, setConflict } from '../Store/Reducer/landingPageSlice'
-import { useTranslate } from '../Utils/useTranslate'
+import { useTranslate } from '../hooks/useTranslate'
 import { FaExclamationTriangle, FaShieldAlt, FaSync, FaTimes, FaInfoCircle } from 'react-icons/fa'
 
 const ConflictResolutionModal = () => {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../Store/Store'
-import { useTranslate } from '../Utils/useTranslate'
+import { useTranslate } from '../hooks/useTranslate'
 import { useEffect } from 'react'
 import { generatePersonalizationConfig } from '../Utils/generatePersonalizationConfig'
 import { setPersonalization } from '../Store/Reducer/landingPageSlice'

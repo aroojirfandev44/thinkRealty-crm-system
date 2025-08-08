@@ -1,17 +1,15 @@
-// detectPriceChangesAndConflicts.ts
 import type { Unit, NotificationState, ConflictState } from '../types'
 
 export const detectPriceChangesAndConflicts = (
   allUnits: Unit[],
   externalUnits: Unit[],
-  t: any // injected translations
+  t: any 
 ): { notifications: NotificationState[]; conflict: ConflictState | null } => {
   const notifications: NotificationState[] = []
 
   const localUnitsMap = new Map(allUnits.map(unit => [unit.unit_id, unit]))
 
   let conflictProjectId: number | null = null
-  console.log("Dtt",t)
   for (const externalUnit of externalUnits) {
     const localUnit = localUnitsMap.get(externalUnit.unit_id)
 

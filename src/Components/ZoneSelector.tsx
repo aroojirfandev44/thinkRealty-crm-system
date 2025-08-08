@@ -3,8 +3,8 @@ import { setSelectedZone } from '../Store/Reducer/landingPageSlice'
 import type { RootState } from '../Store/Store'
 import { mockZones } from '../data/data'
 import { MdBusiness } from 'react-icons/md'
-import DropdownSelector from './DropdownSelector'
-import { useTranslate } from '../Utils/useTranslate'
+import DropdownSelector from '../Utils/DropdownSelector'
+import { useTranslate } from '../hooks/useTranslate'
 import { translations } from '../types/translation'
 
 const ZoneSelector = () => {
