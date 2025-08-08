@@ -29,7 +29,7 @@ interface LandingPageState {
   reservedUnits: Unit[];
   allUnits: Unit[]; // ✅ Add this
   validationReport: ValidationReport[];
-  
+
 }
 
 const initialState: LandingPageState = {
@@ -71,19 +71,19 @@ const landingPageSlice = createSlice({
   reducers: {
     // Area/Zone selection
     setSelectedArea(state, action: PayloadAction<number | null>) {
-        state.selectedAreaId = action.payload;
-        state.selectedZoneId = null;
-        state.selectedProject = null;
-        state.selectedUnits = [];
-      
-        const selectedArea = mockAreas.find(a => a.area_id === action.payload);
-        if (selectedArea?.area_name_ar.includes('دبي')) {
-          state.contentPersonalization.language = 'ar';
-        } else {
-          state.contentPersonalization.language = 'en';
-        }
+      state.selectedAreaId = action.payload;
+      state.selectedZoneId = null;
+      state.selectedProject = null;
+      state.selectedUnits = [];
+
+      const selectedArea = mockAreas.find(a => a.area_id === action.payload);
+      if (selectedArea?.area_name_ar.includes('دبي')) {
+        state.contentPersonalization.language = 'ar';
+      } else {
+        state.contentPersonalization.language = 'en';
       }
-      ,
+    }
+    ,
     setSelectedZone(state, action: PayloadAction<number | null>) {
       state.selectedZoneId = action.payload
       state.selectedProject = null
@@ -95,103 +95,103 @@ const landingPageSlice = createSlice({
       state.selectedUnits = []
     },
     toggleUnit(state, action: PayloadAction<Unit>) {
-        const unitId = action.payload.unit_id;
-        const existing = state.selectedUnits.find(u => u.unit_id === unitId);
-        const idx = state.allUnits.findIndex(u => u.unit_id === unitId);
-      
-        if (existing) {
-          // Remove from selected/reserved
-          state.selectedUnits = state.selectedUnits.filter(u => u.unit_id !== unitId);
-          state.reservedUnits = state.reservedUnits.filter(u => u.unit_id !== unitId);
-      
-          if (idx !== -1) {
-            // Update status in allUnits to 'available'
-            state.allUnits[idx] = {
-              ...state.allUnits[idx],
-              status: 'available'
-            };
-          } else {
-            
-            state.allUnits.push({
-              ...action.payload,
-              status: 'available'
-            });
-          }
-        } else {
-        
-          const reservedUnit = {
-            ...action.payload,
-            status: 'reserved' as const
+      const unitId = action.payload.unit_id;
+      const existing = state.selectedUnits.find(u => u.unit_id === unitId);
+      const idx = state.allUnits.findIndex(u => u.unit_id === unitId);
+
+      if (existing) {
+        // Remove from selected/reserved
+        state.selectedUnits = state.selectedUnits.filter(u => u.unit_id !== unitId);
+        state.reservedUnits = state.reservedUnits.filter(u => u.unit_id !== unitId);
+
+        if (idx !== -1) {
+          // Update status in allUnits to 'available'
+          state.allUnits[idx] = {
+            ...state.allUnits[idx],
+            status: 'available'
           };
-      
-          state.selectedUnits.push(reservedUnit);
-          state.reservedUnits.push(reservedUnit);
-      
-          if (idx !== -1) {
-            state.allUnits[idx] = reservedUnit;
-          } else {
-            state.allUnits.push(reservedUnit);
-          }
+        } else {
+
+          state.allUnits.push({
+            ...action.payload,
+            status: 'available'
+          });
+        }
+      } else {
+
+        const reservedUnit = {
+          ...action.payload,
+          status: 'reserved' as const
+        };
+
+        state.selectedUnits.push(reservedUnit);
+        state.reservedUnits.push(reservedUnit);
+
+        if (idx !== -1) {
+          state.allUnits[idx] = reservedUnit;
+        } else {
+          state.allUnits.push(reservedUnit);
         }
       }
-,      
-      
-      setAllUnits(state, action: PayloadAction<Unit[]>) {
-        state.allUnits = action.payload
-      },
-     appendOrUpdateUnits(state, action: PayloadAction<Unit[]>) {
-  const now = Date.now();
-
-  action.payload.forEach((newUnit) => {
-    const existingIndex = state.allUnits.findIndex(
-      (u) => u.unit_id === newUnit.unit_id
-    );
-
-    if (existingIndex !== -1) {
-      const existing = state.allUnits[existingIndex];
-
-      // 🧪 LOGGING COMPARISON
-      console.log('Comparing updates for unit:', newUnit.unit_number);
-      console.log('➡️ Incoming:', newUnit.lastUpdated, 'Price:', newUnit.price);
-      console.log('🟡 Existing:', existing.lastUpdated, 'Price:', existing.price);
-
-      const isStale = existing.lastUpdated && existing.lastUpdated > now;
-
-      if (!isStale) {
-        state.allUnits[existingIndex] = {
-          ...newUnit,
-          lastUpdated: now,
-        };
-      } else {
-        console.log('⛔ Skipping stale update for', newUnit.unit_number);
-      }
-    } else {
-      console.log('🆕 Adding new unit:', newUnit.unit_number, 'at', now);
-      state.allUnits.push({ ...newUnit, lastUpdated: now });
     }
-  });
-}
+    ,
 
-      
-,      
+    setAllUnits(state, action: PayloadAction<Unit[]>) {
+      state.allUnits = action.payload
+    },
+    appendOrUpdateUnits(state, action: PayloadAction<Unit[]>) {
+      const now = Date.now();
+
+      action.payload.forEach((newUnit) => {
+        const existingIndex = state.allUnits.findIndex(
+          (u) => u.unit_id === newUnit.unit_id
+        );
+
+        if (existingIndex !== -1) {
+          const existing = state.allUnits[existingIndex];
+
+          // 🧪 LOGGING COMPARISON
+          console.log('Comparing updates for unit:', newUnit.unit_number);
+          console.log('➡️ Incoming:', newUnit.lastUpdated, 'Price:', newUnit.price);
+          console.log('🟡 Existing:', existing.lastUpdated, 'Price:', existing.price);
+
+          const isStale = existing.lastUpdated && existing.lastUpdated > now;
+
+          if (!isStale) {
+            state.allUnits[existingIndex] = {
+              ...newUnit,
+              lastUpdated: now,
+            };
+          } else {
+            console.log('⛔ Skipping stale update for', newUnit.unit_number);
+          }
+        } else {
+          console.log('🆕 Adding new unit:', newUnit.unit_number, 'at', now);
+          state.allUnits.push({ ...newUnit, lastUpdated: now });
+        }
+      });
+    }
+    ,
     setPricingCalculations(state, action: PayloadAction<PricingResult>) {
       state.pricingCalculations = action.payload
     },
     setValidationReport(state, action: PayloadAction<ValidationReport[]>) {
-        state.validationReport = action.payload;
-      },
-      clearValidationReport(state) {
-        state.validationReport = [];
-      },
-      
+      state.validationReport = action.payload;
+    },
+    clearValidationReport(state) {
+      state.validationReport = [];
+    },
+
     setAvailabilityStatus(state, action: PayloadAction<AvailabilityStatus>) {
       state.availabilityStatus = action.payload
     },
 
-    // Timers & discounts
-    updateCountdownTimer(state, action: PayloadAction<{ unitId: number; time: number }>) {
-      state.countdownTimers[action.payload.unitId] = action.payload.time
-    },
+   
+    updateCountdownTimer: (state, action) => {
+      const { unitId, time } = action.payload;
+     
+      state.countdownTimers[unitId] = time;
+    },    
     setBulkDiscountEligible(state, action: PayloadAction<boolean>) {
       state.bulkDiscountEligible = action.payload
     },
@@ -201,20 +201,20 @@ const landingPageSlice = createSlice({
       state.contentPersonalization = action.payload
     },
     setContentPersonalizationFocus(state, action: PayloadAction<('investment' | 'family' | 'luxury')[]>) {
-        state.contentPersonalization.focus = action.payload
-      },      
-      setLayoutMode(state, action: PayloadAction<layoutMode>) {
-        state.layoutMode = action.payload
-      }
-,          
+      state.contentPersonalization.focus = action.payload
+    },
+    setLayoutMode(state, action: PayloadAction<layoutMode>) {
+      state.layoutMode = action.payload
+    }
+    ,
 
-      addNotification: (state, action) => {
-        const exists = state.notifications.some(n => n.id === action.payload.id);
-        if (!exists) {
-          state.notifications.push(action.payload);
-        }
+    addNotification: (state, action) => {
+      const exists = state.notifications.some(n => n.id === action.payload.id);
+      if (!exists) {
+        state.notifications.push(action.payload);
       }
-      ,
+    }
+    ,
     markNotificationRead(state, action: PayloadAction<string>) {
       const notif = state.notifications.find(n => n.id === action.payload)
       if (notif) notif.read = true
@@ -222,44 +222,45 @@ const landingPageSlice = createSlice({
 
     // Demand, Conflicts, Errors, Users
     addDemandTrigger(state, action: PayloadAction<DemandTrigger>) {
-        const exists = state.demandTriggers.find(
-          t => t.unitId === action.payload.unitId && t.triggerType === action.payload.triggerType
-        )
-        if (!exists) {
-          state.demandTriggers.push(action.payload)
-        }
-      },
-            
+      const exists = state.demandTriggers.find(
+        t => t.unitId === action.payload.unitId && t.triggerType === action.payload.triggerType
+      )
+      console.log('🔥 Trigger added:', action.payload);
+
+      if (!exists) {
+        state.demandTriggers.push(action.payload)
+      }
+    },
+
     setConflict(state, action: PayloadAction<ConflictState>) {
       state.conflictResolution = action.payload
     },
     setValidationErrorsFromChain(
-        state,
-        action: PayloadAction<{ selectedUnits: Unit[]; project: Project }>
-      ) {
-        const { selectedUnits, project } = action.payload;
-        const results = runValidationChain(selectedUnits, project);
-      
-        state.validationErrors = results
-          .filter(r => !r.passed)
-          .map(r => ({
-            unitId: r.unitId,
-            field: r.rule,
-            message: r.message
-          }));
-      
-        state.validationReport = results.map(({ rule, passed, riskLevel, suggestion, unitId, message }) => ({
-          rule,
-          passed,
-          riskLevel,
-          suggestion,
-          unitId,
-          message
+      state,
+      action: PayloadAction<{ selectedUnits: Unit[]; project: Project; t: any }>
+    ) {
+      const { selectedUnits, project, t } = action.payload;
+      const results = runValidationChain(selectedUnits, project, t);
+
+      state.validationErrors = results
+        .filter(r => !r.passed)
+        .map(r => ({
+          unitId: r.unitId,
+          field: r.rule,
+          message: r.message
         }));
-      }
-      
-,      
-      
+
+      state.validationReport = results.map(({ rule, passed, riskLevel, suggestion, unitId, message }) => ({
+        rule,
+        passed,
+        riskLevel,
+        suggestion,
+        unitId,
+        message
+      }));
+    }
+    ,
+
     addValidationError(state, action: PayloadAction<ValidationError>) {
       state.validationErrors.push(action.payload)
     },
@@ -281,7 +282,7 @@ export const {
   appendOrUpdateUnits,
   setSelectedZone,
   setValidationReport,
-clearValidationReport,
+  clearValidationReport,
   setSelectedProject,
   toggleUnit,
   setContentPersonalizationFocus,
