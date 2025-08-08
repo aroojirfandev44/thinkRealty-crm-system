@@ -1,63 +1,72 @@
-import type { Unit, Project, PricingResult } from '../types'
+import type { PricingResult, Project, Unit } from "../types";
 
 export function calculateComplexPricing(
   units: Unit[],
   project: Project,
   percentageSelected: number,
-  t: any 
+  t: any
 ): PricingResult {
-  let total = 0
-  const breakdown: string[] = []
+  let baseTotal = 0;
+  let parkingTotal = 0;
+  let hasBalcony = false;
+  const breakdown: string[] = [];
 
   for (const unit of units) {
-    let unitPrice = unit.price
-
-    // Floor level adjustment
+    // Apply floor-level adjustment
+    let adjustedPrice = unit.price;
     if (unit.floor_level >= 1 && unit.floor_level <= 3) {
-      unitPrice *= 1.05
-      breakdown.push(t.floorAdjustmentLow(unit.floor_level, unit.unit_number))
+      adjustedPrice *= 1.05;
+      breakdown.push(t.floorAdjustmentLow(unit.floor_level, unit.unit_number));
     } else if (unit.floor_level >= 4) {
-      unitPrice *= 1.12
-      breakdown.push(t.floorAdjustmentHigh(unit.floor_level, unit.unit_number))
+      adjustedPrice *= 1.12;
+      breakdown.push(t.floorAdjustmentHigh(unit.floor_level, unit.unit_number));
     }
 
-    // Balcony adjustment
-    if (unit.has_balcony) {
-      unitPrice *= 1.08
-      breakdown.push(t.balconyAdjustment(unit.unit_number))
-    }
+    baseTotal += adjustedPrice;
 
-    // Parking adjustment
+    // Parking is per-unit fixed
     if (unit.has_parking) {
-      unitPrice += 15000
-      breakdown.push(t.parkingAdjustment(unit.unit_number))
+      parkingTotal += 15000;
+      breakdown.push(t.parkingAdjustment(unit.unit_number));
     }
 
-    total += unitPrice
+    // Balcony: only check once (rule says apply 8% once if any selected units have a balcony)
+    if (unit.has_balcony) {
+      hasBalcony = true; // track only once
+    }
+    
   }
 
-  // Bulk discount rule
+  let total = baseTotal + parkingTotal;
+
+  // Balcony increase: 8% to total (if any unit has balcony)
+  if (hasBalcony) {
+    const balconyIncrease = total * 0.08;
+    total += balconyIncrease;
+    breakdown.push(t.balconyAdjustmentTotal);
+  }
+
+  // Bulk discount if more than 30% units selected
   if (percentageSelected > 30) {
-    const discount = total * 0.03
-    total -= discount
-    breakdown.push(t.bulkDiscount)
+    const discount = total * 0.03;
+    total -= discount;
+    breakdown.push(t.bulkDiscount || '+3% bulk discount applied');
   }
 
+  // 15% uplift if off-plan & completion >18 months
   if (
-    project.completion_status === 'off_plan' &&
-    isCompletionBeyond18Months(project)
+    project.completion_status === 'off_plan' 
+   
   ) {
-    const uplift = total * 0.15
-    total += uplift
-    breakdown.push(t.futureAppreciation)
+    const appreciation = total * 0.15;
+    total += appreciation;
+    breakdown.push(t.futureAppreciation);
   }
 
   return {
     total: Math.round(total),
     breakdown
-  }
+  };
 }
 
-function isCompletionBeyond18Months(project: Project): boolean {
-  return true
-}
+

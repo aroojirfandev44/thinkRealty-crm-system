@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import type { RootState } from '../Store/Store'
-import { useTranslate } from '../Utils/useTranslate'
+import { useTranslate } from '../hooks/useTranslate'
 import { FaCheckCircle, FaExclamationTriangle, FaClipboardList, FaLightbulb } from 'react-icons/fa'
 
 const ValidationSummary = () => {

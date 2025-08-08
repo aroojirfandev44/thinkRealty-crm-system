@@ -58,18 +58,18 @@ const initialState: LandingPageState = {
     isFocus: false,
     isStandard: true,
   },
-  validationReport: [], // ✅ initialize
+  validationReport: [],
   validationErrors: [],
   concurrentUsers: [],
   reservedUnits: [],
-  allUnits: [], // ✅ initialize
+  allUnits: [],
 }
 
 const landingPageSlice = createSlice({
   name: 'landingPage',
   initialState,
   reducers: {
-    // Area/Zone selection
+
     setSelectedArea(state, action: PayloadAction<number | null>) {
       state.selectedAreaId = action.payload;
       state.selectedZoneId = null;
@@ -100,12 +100,12 @@ const landingPageSlice = createSlice({
       const idx = state.allUnits.findIndex(u => u.unit_id === unitId);
 
       if (existing) {
-        // Remove from selected/reserved
+
         state.selectedUnits = state.selectedUnits.filter(u => u.unit_id !== unitId);
         state.reservedUnits = state.reservedUnits.filter(u => u.unit_id !== unitId);
 
         if (idx !== -1) {
-          // Update status in allUnits to 'available'
+
           state.allUnits[idx] = {
             ...state.allUnits[idx],
             status: 'available'
@@ -147,30 +147,30 @@ const landingPageSlice = createSlice({
           (u) => u.unit_id === newUnit.unit_id
         );
 
+        const priceChangeThreshold = 500; // AED - minimum meaningful price change
+
         if (existingIndex !== -1) {
           const existing = state.allUnits[existingIndex];
 
-          // 🧪 LOGGING COMPARISON
-          console.log('Comparing updates for unit:', newUnit.unit_number);
-          console.log('➡️ Incoming:', newUnit.lastUpdated, 'Price:', newUnit.price);
-          console.log('🟡 Existing:', existing.lastUpdated, 'Price:', existing.price);
-
           const isStale = existing.lastUpdated && existing.lastUpdated > now;
+          const isSame = existing.price === newUnit.price && existing.status === newUnit.status;
 
-          if (!isStale) {
+          const isNoise = isSame || Math.abs(existing.price - newUnit.price) < priceChangeThreshold;
+
+          if (!isStale && !isNoise) {
             state.allUnits[existingIndex] = {
               ...newUnit,
               lastUpdated: now,
             };
           } else {
-            console.log('⛔ Skipping stale update for', newUnit.unit_number);
+            console.log(`⏸️ Skipping noisy/stale update for ${newUnit.unit_number}`);
           }
         } else {
-          console.log('🆕 Adding new unit:', newUnit.unit_number, 'at', now);
           state.allUnits.push({ ...newUnit, lastUpdated: now });
         }
       });
     }
+
     ,
     setPricingCalculations(state, action: PayloadAction<PricingResult>) {
       state.pricingCalculations = action.payload
@@ -186,12 +186,11 @@ const landingPageSlice = createSlice({
       state.availabilityStatus = action.payload
     },
 
-   
     updateCountdownTimer: (state, action) => {
       const { unitId, time } = action.payload;
-     
+
       state.countdownTimers[unitId] = time;
-    },    
+    },
     setBulkDiscountEligible(state, action: PayloadAction<boolean>) {
       state.bulkDiscountEligible = action.payload
     },
@@ -220,12 +219,11 @@ const landingPageSlice = createSlice({
       if (notif) notif.read = true
     },
 
-    // Demand, Conflicts, Errors, Users
+
     addDemandTrigger(state, action: PayloadAction<DemandTrigger>) {
       const exists = state.demandTriggers.find(
         t => t.unitId === action.payload.unitId && t.triggerType === action.payload.triggerType
       )
-      console.log('🔥 Trigger added:', action.payload);
 
       if (!exists) {
         state.demandTriggers.push(action.payload)

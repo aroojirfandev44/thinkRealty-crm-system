@@ -3,8 +3,8 @@ import { setSelectedProject } from '../Store/Reducer/landingPageSlice'
 import type { RootState } from '../Store/Store'
 import { mockProjects } from '../data/data'
 import { FaHome } from 'react-icons/fa'
-import DropdownSelector from './DropdownSelector'
-import { useTranslate } from '../Utils/useTranslate'
+import DropdownSelector from '../Utils/DropdownSelector'
+import { useTranslate } from '../hooks/useTranslate'
 import { translations } from '../types/translation'
 
 const ProjectSelector = () => {

@@ -18,7 +18,7 @@ export const handleAvailabilityCascade = (
       status: isJustReserved || isReservedInRedux ? 'reserved' : 'available',
     };
   });
-  console.log("updatedUnits,",updatedUnits)
+
   const similarUnits = updatedUnits.filter(
     u =>
       u.project_id === updatedUnit.project_id &&
@@ -27,7 +27,7 @@ export const handleAvailabilityCascade = (
       u.status === 'available'
   );
 
-  console.log("triggeed,",similarUnits)
+  
   similarUnits.forEach(u => { 
       dispatch(addDemandTrigger({
         unitId: u.unit_id,
