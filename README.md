@@ -10,7 +10,7 @@ A real estate selection platform that allows users to select areas, zones, proje
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/think-realty-app.git
+   git clone https://github.com/yourusername/thinkRealty-crm-system.git
    cd think-realty-app
    ```
 
@@ -25,7 +25,7 @@ A real estate selection platform that allows users to select areas, zones, proje
    ```
 
 4. **Open in Browser**
-   Visit [http://localhost:3000](http://localhost:3000)
+   Visit [http://localhost:5173/](http://localhost:5173/)
 
 ### 1.2 Prerequisites and Dependencies
 
@@ -51,7 +51,7 @@ A real estate selection platform that allows users to select areas, zones, proje
 | Redux Toolkit   | ^1.9.x   | Global state management        |
 | Tailwind CSS    | ^3.x     | Styling & responsiveness       |
 | Heroicons / React Icons | ^4.x | Icons                      |
-| Chart.js        | ^4.x     | Graphing engine (if extended)  |
+
 
 ### 2.2 Utilities
 
@@ -88,7 +88,7 @@ A real estate selection platform that allows users to select areas, zones, proje
 ### 📍 4.1 Initial Project Selection
 **Description**: The user starts the property selection process by choosing Area → Zone → Project.
 
----
+--- ![alt text](image.png)
 
 ### 🏢 4.2 Unit Selection + Pricing Breakdown
 **Description**: Real-time pricing logic including modifiers like floor level, balcony, parking, and discount rules.
