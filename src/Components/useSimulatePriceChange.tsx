@@ -7,6 +7,7 @@ import {
   setConflict
 } from '../Store/Reducer/landingPageSlice'
 import { detectPriceChangesAndConflicts } from '../Utils/detectAndResolveConflicts'
+import { useTranslate } from '../Utils/useTranslate'
 
 
 const useSimulatePriceChange = () => {
@@ -14,7 +15,7 @@ const useSimulatePriceChange = () => {
   const allUnits = useSelector((state: RootState) => state.landingPage.allUnits)
   const selectedUnits = useSelector((state: RootState) => state.landingPage.selectedUnits)
   const notifiedUnitsRef = useRef<Set<number>>(new Set());
-
+    const t = useTranslate()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,9 +29,7 @@ const useSimulatePriceChange = () => {
           ? { ...unit, price: unit.price + 1000 }
           : unit
       )
-     
-      console.log('Is unit 11 selected?', isSelected);
-      const { notifications, conflict } = detectPriceChangesAndConflicts(allUnits, simulatedUpdates)
+      const { notifications, conflict } = detectPriceChangesAndConflicts(allUnits, simulatedUpdates,t)
 
       notifications.forEach(alert => {
         dispatch(addNotification(alert))
